@@ -365,6 +365,7 @@ class Codegen(config: CodegenConfig) {
         "classname" -> config.toModelName(className),
         "classVarName" -> config.toVarName(className), // suggested name of object created from this class
         "modelPackage" -> config.modelPackage,
+        "description" -> model.description,
         "newline" -> "\n")
 
     val l = new ListBuffer[AnyRef]
