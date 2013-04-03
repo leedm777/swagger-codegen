@@ -1,0 +1,36 @@
+{toc}
+
+h1. {{className}}
+
+{{#operations}}
+|| Method || Path || Summary ||
+{{#operation}}
+| {{httpMethod}} | [{{path}}|#{{nickname}}] | {{summary}} |
+{{/operation}}
+{{/operations}}
+
+{{#operations}}
+{{#operation}}
+
+{anchor:{{nickname}}}
+h2. {{httpMethod}} {{path}}
+
+{{summary}}
+{{notes}}
+
+{{#pathParams}}
+h3. Path parameters
+{{#param}}
+* {{paramName}}: {{dataType}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}} - {{description}}{{notes}}
+{{/param}}
+{{/pathParams}}
+
+{{#queryParams}}
+h3. Query parameters
+{{#param}}
+* {{paramName}}: {{dataType}} - {{description}}{{notes}}
+{{/param}}
+{{/queryParams}}
+
+{{/operation}}
+{{/operations}}

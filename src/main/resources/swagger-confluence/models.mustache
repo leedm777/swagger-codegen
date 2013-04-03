@@ -1,0 +1,15 @@
+{toc}
+
+{{#models}}
+{{#model}}
+h1. {{classname}}
+
+{{{description}}}
+
+Fields:
+{{#vars}}
+* {{name}}: {{#isPrimitiveType}}{{datatype}}{{/isPrimitiveType}}{{^isPrimitiveType}}[#{{datatype}}]{{/isPrimitiveType}}{{#description}} - {{{description}}}{{/description}}{{n}}
+{{/vars}}
+{{n}}
+{{/model}}
+{{/models}}
