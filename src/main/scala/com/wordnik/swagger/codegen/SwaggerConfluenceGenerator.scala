@@ -15,6 +15,8 @@
  */
 
 import com.wordnik.swagger.codegen.BasicGenerator
+import com.wordnik.swagger.model.{Operation, Model, ApiListing}
+import scala.collection.mutable
 
 object SwaggerConfluenceGenerator extends BasicGenerator {
   def main(args: Array[String]) {
@@ -32,4 +34,18 @@ object SwaggerConfluenceGenerator extends BasicGenerator {
 
   override def supportingFiles = List(
     ("models.mustache", destinationDir, "models.wiki"))
+
+  override def extractApiOperations(apiListings: List[ApiListing], allModels: mutable.HashMap[String, Model])(implicit basePath: String): List[(String, String, Operation)] = {
+    // escape { and } in apiPath
+    for ((base, apiPath, op) <- super.extractApiOperations(apiListings, allModels)) yield {
+      (base, apiPath.replaceAll("[{}]", "\\\\$0"), op)
+    }
+  }
+
+  /** Don't append Api to resource names */
+  override def toApiName(name: String) =
+    name.replaceAll("[{}]", "") match {
+      case str if !str.isEmpty => str(0).toUpper + str.substring(1)
+      case str => "Api"
+    }
 }
