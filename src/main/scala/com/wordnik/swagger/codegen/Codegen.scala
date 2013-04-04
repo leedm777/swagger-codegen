@@ -328,6 +328,12 @@ class Codegen(config: CodegenConfig) {
         "httpMethod" -> operation.httpMethod.toUpperCase,
         operation.httpMethod.toLowerCase -> "true")
     if (requiredParams.size > 0) properties += "requiredParamCount" -> requiredParams.size.toString
+    if (!sp.isEmpty) properties += "hasParams" -> "true"
+    if (!bodyParams.isEmpty) properties += "hasBodyParams" -> "true"
+    if (!pathParams.isEmpty) properties += "hasPathParams" -> "true"
+    if (!queryParams.isEmpty) properties += "hasQueryParams" -> "true"
+    if (!headerParams.isEmpty) properties += "hasHeaderParams" -> "true"
+    if (!requiredParams.isEmpty) properties += "hasRequiredParams" -> "true"
     operation.responseClass.indexOf("[") match {
       case -1 => {
         val baseType = operation.responseClass

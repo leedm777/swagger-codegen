@@ -3,9 +3,11 @@
 {{#models}}
 {{#model}}
 h1. {{classname}}
-
+{{#description}}
+{{n}}
 {{{description}}}
-
+{{/description}}
+{{n}}
 Fields:
 {{#vars}}
 * {{name}}: {{#isPrimitiveType}}{{datatype}}{{/isPrimitiveType}}{{^isPrimitiveType}}[#{{datatype}}]{{/isPrimitiveType}}{{#description}} - {{{description}}}{{/description}}{{n}}

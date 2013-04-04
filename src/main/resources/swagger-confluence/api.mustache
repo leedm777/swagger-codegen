@@ -11,26 +11,32 @@ h1. {{className}}
 
 {{#operations}}
 {{#operation}}
-
+{{n}}
 {anchor:{{nickname}}}
 h2. {{httpMethod}} {{path}}
 
-{{summary}}
-{{notes}}
-
-{{#pathParams}}
+{{{summary}}}{{#notes}}  {{{notes}}}{{/notes}}
+{{n}}
+{{#hasPathParams}}
+{{n}}
 h3. Path parameters
-{{#param}}
+{{#pathParams}}
 * {{paramName}}: {{dataType}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}} - {{description}}{{notes}}
-{{/param}}
 {{/pathParams}}
-
-{{#queryParams}}
+{{/hasPathParams}}
+{{#hasQueryParams}}
+{{n}}
 h3. Query parameters
-{{#param}}
+{{#queryParams}}
 * {{paramName}}: {{dataType}} - {{description}}{{notes}}
-{{/param}}
 {{/queryParams}}
-
+{{/hasQueryParams}}
+{{#hasHeaderParams}}
+{{n}}
+h3. Header parameters
+{{#headerParams}}
+* {{paramName}}: {{dataType}} - {{description}}{{notes}}
+{{/headerParams}}
+{{/hasHeaderParams}}
 {{/operation}}
 {{/operations}}
