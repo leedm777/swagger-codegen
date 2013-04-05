@@ -19,8 +19,11 @@ package com.wordnik.swagger.codegen.language
 import com.wordnik.swagger.model._
 
 import scala.collection.mutable.{ HashMap, HashSet }
+import org.json4s.jackson.Serialization
+import org.json4s.Formats
 
 abstract class CodegenConfig {
+
   /*
    * abstract methods
    */
@@ -60,6 +63,9 @@ abstract class CodegenConfig {
 
   // only process these models
   val modelsToProcess = new HashSet[String]
+
+  def modelToJson(model: Model)(implicit formats: Formats): String =
+    Serialization.write(model)
 
   // method name from operation.nickname
   def toMethodName(name: String): String = name

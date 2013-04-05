@@ -132,10 +132,13 @@ abstract class BasicGenerator extends CodegenConfig with PathUtil {
         })
       }
       output.map(op => processApiOperation(op._2, op._3))
-      allModels ++= CoreUtils.extractApiModels(apiDescription)
+      allModels ++= extractApiModels(apiDescription)
     })
     output.toList
   }
+
+  def extractApiModels(sd: ApiListing): Map[String, Model] =
+    CoreUtils.extractApiModels(sd)
 
   /**
    * creates a map of models and properties needed to write source

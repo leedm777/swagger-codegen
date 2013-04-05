@@ -7,8 +7,9 @@ h1. {{classname}}
 {{n}}
 {{{description}}}
 {{/description}}
-{{n}}
-Fields:
+{code:language=javascript|collapse=true}
+{{{modelJson}}}
+{code}
 {{#vars}}
 * {{name}}: {{#isPrimitiveType}}{{datatype}}{{/isPrimitiveType}}{{^isPrimitiveType}}[{{datatype}}|#{{datatype}}]{{/isPrimitiveType}}{{#description}} - {{{description}}}{{/description}}{{n}}
 {{/vars}}

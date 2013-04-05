@@ -3,9 +3,9 @@
 h1. {{className}}
 
 {{#operations}}
-|| Method || Path || Summary ||
+|| Method || Path || Return Model || Summary ||
 {{#operation}}
-| {{httpMethod}} | [{{path}}|#{{nickname}}] | {{summary}} |
+| {{httpMethod}} | [{{path}}|#{{nickname}}] | {{returnType}} | {{summary}} |
 {{/operation}}
 {{/operations}}
 
@@ -15,27 +15,27 @@ h1. {{className}}
 {anchor:{{nickname}}}
 h2. {{httpMethod}} {{path}}
 
-{{{summary}}}{{#notes}}  {{{notes}}}{{/notes}}
+{{{summary}}}{{#notes}} {{{notes}}}{{/notes}}
 {{n}}
 {{#hasPathParams}}
 {{n}}
 h3. Path parameters
 {{#pathParams}}
-* {{paramName}}: {{dataType}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}} - {{description}}{{notes}}
+* {{paramName}}: {{dataType}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}} - {{description}}{{#notes}} {{{notes}}}{{/notes}}{{n}}
 {{/pathParams}}
 {{/hasPathParams}}
 {{#hasQueryParams}}
 {{n}}
 h3. Query parameters
 {{#queryParams}}
-* {{paramName}}: {{dataType}} - {{description}}{{notes}}
+* {{paramName}}: {{dataType}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}} - {{description}}{{#notes}} {{{notes}}}{{/notes}}{{n}}
 {{/queryParams}}
 {{/hasQueryParams}}
 {{#hasHeaderParams}}
 {{n}}
 h3. Header parameters
 {{#headerParams}}
-* {{paramName}}: {{dataType}} - {{description}}{{notes}}
+* {{paramName}}: {{dataType}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}} - {{description}}{{#notes}} {{{notes}}}{{/notes}}{{n}}
 {{/headerParams}}
 {{/hasHeaderParams}}
 {{/operation}}
