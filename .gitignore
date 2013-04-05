@@ -1,7 +1,4 @@
-*.iml
 out/
-*.ipr
-*.iws
 classpath.txt
 version.properties
 .project
@@ -22,8 +19,8 @@ samples/server-generator/scalatra/output
 samples/server-generator/node/output/node_modules
 samples/server-generator/scalatra/target
 samples/server-generator/scalatra/output/.history
+samples/docs/swagger-confluence-docs
 
 target
-.idea
 .lib
 atlassian-ide-plugin.xml
