@@ -111,14 +111,11 @@ object SwaggerConfluenceGenerator extends BasicGenerator {
   }
 
   override def processModelMap(m: Map[String, AnyRef]): Map[String, AnyRef] = {
-    println("old: " + m)
     m.map {
       case ("vars", varList) if mapVarList.isDefinedAt(varList) =>
         "vars" -> mapVarList(varList)
       case x =>
         x
-    } tap { r =>
-      println("new: " + r)
     }
   }
 
