@@ -50,74 +50,21 @@ object SwaggerConfluenceGenerator extends BasicGenerator {
   override def modelToJson(model: Model)(implicit formats: Formats): String =
     Serialization.writePretty(model)
 
-  val identityPF = new PartialFunction[Any, Any] {
-    def apply(v1: Any): Any = v1
-
-    def isDefinedAt(x: Any): Boolean = true
-  }
-
-  val mapType: PartialFunction[Any, AnyRef] = {
-    // escape [ and ]
-    case str: String =>
-      str.replaceAll("""[\[\]]""", """\\$0""")
-    case Some(str: String) =>
-      str.replaceAll("""[\[\]]""", """\\$0""")
-  }
-
-  val mapParamField: PartialFunction[Any, AnyRef] = {
-    case (name @ ("dataType" | "baseType" | "complexType" | "datatype" | "baseTypeVarName"), t) if mapType.isDefinedAt(t) =>
-      name-> mapType(t)
-  }
-
-  val mapParam: PartialFunction[Any, AnyRef] = {
-    case list: Iterable[_] => list.map(mapParamField orElse identityPF)
-  }
-
-  val mapParamList: PartialFunction[Any, AnyRef] = {
-    case list: Iterable[_] => list.map(mapParam orElse identityPF)
-  }
-
-  val mapPath: PartialFunction[Any, AnyRef] = {
-    case str: String =>
-      // escape { and }
-      str.replaceAll("""[{}]""", """\\$0""")
-  }
-
-  override def processApiMap(m: Map[String, AnyRef]): Map[String, AnyRef] =
-    m.map {
-      case ("headerParams", plist) if mapParamList.isDefinedAt(plist) =>
-        "headerParams" -> mapParamList(plist)
-      case ("returnType", t) if mapType.isDefinedAt(t) =>
-        "returnType" -> mapType(t)
-      case ("path", p) if mapPath.isDefinedAt(p) =>
-        "path" -> mapPath(p)
-      case x =>
-        x
+  override def processResponseClass(responseClass: String): Option[String] =
+    for (dataType <- super.processResponseClass(responseClass)) yield {
+      dataType.replaceAll("""[\[\]]""", """\\$0""")
     }
 
-  val mapVarField: PartialFunction[Any, (String, AnyRef)] = {
-    case (name @ ("dataType" | "baseType" | "complexType" | "datatype" | "baseTypeVarName"), t) if mapType.isDefinedAt(t) =>
-      name.asInstanceOf[String] -> mapType(t)
-    case (name: String, value: AnyRef) =>
-      (name, value)
-  }
-
-  val mapVar: PartialFunction[Any, AnyRef] = {
-    case map: collection.Map[_, _] => map.map(mapVarField).toMap
-  }
-
-  val mapVarList: PartialFunction[AnyRef, AnyRef] = {
-    case list: Iterable[_] => list.map(mapVar orElse identityPF)
-  }
-
-  override def processModelMap(m: Map[String, AnyRef]): Map[String, AnyRef] = {
-    m.map {
-      case ("vars", varList) if mapVarList.isDefinedAt(varList) =>
-        "vars" -> mapVarList(varList)
-      case x =>
-        x
+  override def processResponseDeclaration(responseClass: String): Option[String] =
+    for (dataType <- super.processResponseDeclaration(responseClass)) yield {
+      dataType.replaceAll("""[\[\]]""", """\\$0""")
     }
-  }
+
+  override def toDeclaredType(dataType: String): String =
+    super.toDeclaredType(dataType).replaceAll("""[\[\]]""", """\\$0""")
+
+  override def processPathName(path: String): String =
+    super.processPathName(path).replaceAll("""[{}]""", """\\$0""")
 
   /** Don't append Api to resource names */
   override def toApiName(name: String) =

@@ -312,7 +312,7 @@ class Codegen(config: CodegenConfig) {
 
     val properties =
       HashMap[String, AnyRef](
-        "path" -> path,
+        "path" -> config.processPathName(path),
         "nickname" -> config.toMethodName(operation.nickname),
         "summary" -> operation.summary,
         "notes" -> operation.notes,

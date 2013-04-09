@@ -39,6 +39,7 @@ abstract class CodegenConfig {
   def apiNameFromPath(apiPath: String): String
   def processApiMap(m: Map[String, AnyRef]): Map[String, AnyRef] = m
   def processModelMap(m: Map[String, AnyRef]): Map[String, AnyRef] = m
+  def processPathName(path: String): String = path
 
   val apiTemplateFiles = new HashMap[String, String]()
   val modelTemplateFiles = new HashMap[String, String]()
